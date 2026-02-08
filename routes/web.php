@@ -10,7 +10,7 @@ Route::get('/', function () {
 
 Route::resource('evenements', EvenementController::class);
 
-// À SUPPRIMER APRÈS UTILISATION : Route temporaire pour migrer la base sur le serveur distant
+// À SUPPRIMER APRÈS UTILISATION : Route temporaire pour migrer la base (Force update: 2026-02-08)
 Route::get('/migrate', function () {
     try {
         \Illuminate\Support\Facades\Artisan::call('migrate:fresh', ['--seed' => true, '--force' => true]);
