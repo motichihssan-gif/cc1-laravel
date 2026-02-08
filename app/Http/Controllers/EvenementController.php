@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Models\Evenement;
+use App\Models\Expert;
 
 class EvenementController extends Controller
 {
@@ -47,7 +48,9 @@ class EvenementController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $evenement = Evenement::findOrFail($id);
+        $experts = Expert::all();
+        return view('evenements.edit', compact('evenement', 'experts'));
     }
 
     /**
@@ -55,7 +58,19 @@ class EvenementController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'thème' => 'required|string|max:255',
+            'date_debut' => 'required|date',
+            'date_fin' => 'required|date|after_or_equal:date_debut',
+            'description' => 'required|string',
+            'cout_journalier' => 'required|numeric|min:0',
+            'expert_id' => 'required|exists:experts,id',
+        ]);
+
+        $evenement = Evenement::findOrFail($id);
+        $evenement->update($request->all());
+
+        return redirect()->route('evenements.index')->with('success', 'Événement mis à jour avec succès.');
     }
 
     /**

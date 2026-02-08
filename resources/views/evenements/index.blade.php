@@ -25,7 +25,7 @@
                 <td>{{ $evenement->expert_id }}</td>
                 <td>
                     <a href="{{ route('evenements.show', $evenement->id) }}" class="btn btn-info btn-sm">Consulter</a>
-                    <a href="#" class="btn btn-warning btn-sm">Modifier</a>
+                    <a href="{{ route('evenements.edit', $evenement->id) }}" class="btn btn-warning btn-sm">Modifier</a>
                     <form action="{{ route('evenements.destroy', $evenement->id) }}" method="POST" style="display:inline;">
                         @csrf
                         @method('DELETE')
